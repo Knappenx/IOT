@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Home Sensors{% endblock  %}
+{% block content %}
+
+<div class="container-fluid main-window absoluteCenter" style="width: 75%;">
+            
+    <div class="row">
+        <div class="d-flex justify-content-center my-4">
+            <h1 class="main-title">SMART HOME UI</h1>
+        </div>
+    </div> 
+    <div class="row mt-4">
+        <div class="d-flex justify-content-evenly">
+            {%for actuator in actuators %}
+            <div class="card m-4 col-sm-6 col-md-4 my-2">
+                <a href="{% url 'actuator' actuator.id %}">
+                        <div class="card-body">
+                            <div class="row text-center card-text">
+                                <h4 class="card-title">{{actuator.actuator_name}} in the {{actuator.location}}</h4>
+                            </div>
+                            <div class="row text-center mt-4">                          
+                                {% if actuator.actuator_status == 0 %}
+                                    <i class="light-off far fa-lightbulb fa-10x"></i>
+                                {% else %}
+                                    <i class="light-on fas fa-lightbulb fa-10x"></i>
+                                {% endif %}
+                            </div> 
+                        </div>                   
+                </a>
+            </div>
+            {% endfor %}
+            {%for sensor in sensors %}
+            <div class="card m-4 col-sm-6 col-md-4 my-2">
+                <div class="card-body">
+                    <div class="row text-center">
+                        <h4 class="card-title card-text">{{sensor.sensor_name}}</h4>
+                    </div>
+                    <div class="row text-center card-text mt-4">
+                        <h2 class="data">{{sensor.people_in_room}} <i class="fas fa-running"></i> </h2>
+                    </div>
+                    <div class="row text-center card-text mt-4">
+                        <h5>People in the {{sensor.location}}</h5>
+                    </div>                        
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<script>
+    setTimeout(function(){
+        location.reload()
+    },3000)
+</script>
+{% endblock %}

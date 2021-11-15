@@ -1,0 +1,108 @@
+h1 {
+    color: rgb(253, 253, 253);
+}
+
+.separator{
+    border-bottom: 3px solid rgba(240, 220, 220, 0.35);
+    margin-top: 10px;
+}
+
+.dot {
+    height: 25px;
+    width: 25px;
+    background-color: rgba(240, 220, 220, 0.35);
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+body{
+    background-image: url("bgimg.jpg");
+}
+
+.main-window{
+    box-shadow: 0 0 1rem 0 rgba(47, 46, 46, 0.7); 
+    border-radius: 5px;
+    position: relative;
+    z-index: 1;
+    background: inherit;
+    overflow: hidden;
+}
+
+.main-window:before{
+    content: "";
+    position: absolute;
+    background: inherit;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.95);
+    filter: blur(200px);
+}
+
+.absoluteCenter {
+    /* Must manually set width/height */
+    width:75%;
+    height:75%;
+   
+    /* The magic centering code */
+    margin:auto;
+    position:absolute;
+    top:0;bottom:0; /* Aligns Vertically - Remove for Horizontal Only */
+    left:0;right:0; /* Aligns Horizontally - Remove for Vertical Only  */
+   
+    /* Prevent div from overflowing main window */
+    max-width:100%;
+    max-height:100%;
+    overflow:auto;
+   }
+
+.card{
+    background-color: rgba(206, 192, 192, 0.5);
+    border-radius: 10px;
+}
+
+.light-on{
+    color: rgba(238, 222, 6, 0.95);
+}
+
+.light-off{
+    color: rgba(58, 57, 51, 0.95);
+}
+
+.btn-circle.btn-xl {
+    width: 70px;
+    height: 70px;
+    padding: 10px 16px;
+    border-radius: 35px;
+    font-size: 24px;
+    line-height: 1.33;
+}
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
+}
+
+.data{
+    font-size: 8rem;
+}
+
+.card-text{
+    color: seashell;
+}
+
+.main-title{
+    font-size: 6rem;
+    color: rgba(255, 255, 255, 0.90);
+}
+
+a{
+    text-decoration: none;
+}
