@@ -20,9 +20,9 @@ def sensor_input_database(request):
         sensor_query = Sensor.objects.filter(sensor_name=sensor_name)
         if len(sensor_query) == 0:
             add_sensor = Sensor(
-                sensor_name,
-                people_in_room,
-                location
+                sensor_name = sensor_name,
+                people_in_room = people_in_room,
+                location = location
             )
             add_sensor.save()
             print("Adding sensor to DB")
