@@ -16,7 +16,7 @@ wlan.connect(ssid, password)
 while wlan.isconnected() == False: 
     pass
 
-print('WiFi vonnection on %s established. Device network information: ' % ssid)
+print('WiFi connection on %s established. Device network information: ' % ssid)
 print(wlan.ifconfig())
 
 

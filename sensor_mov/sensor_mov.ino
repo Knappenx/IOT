@@ -99,23 +99,12 @@ void sensor_one_true(){
         sensor_two_status = digitalRead(sensor_two);    //read sensor 2 val
         if(sensor_one_status == HIGH && sensor_two_status == HIGH){
             people_counter ++;
-            // -------------
-            //test_number ++;
-            //Serial.println((String)">>>>> TEST: "+test_number);
-            // -------------
             wait_off = true;
-            //*wait_off = true; por referencia
             return; 
         }
         delay(1200);
     }
-    //post_json();
     Serial.println("Exits State Sensor 1");
-    // -------------
-    //test_number ++;
-    //Serial.println((String)">>>>> TEST: "+test_number);
-    // -------------
-    //Serial.println("-------------------------");
 }
 
 void sensor_two_true(){
@@ -127,26 +116,15 @@ void sensor_two_true(){
         sensor_two_status = digitalRead(sensor_two);    //read sensor 2 val
         if(sensor_one_status == HIGH && sensor_two_status == HIGH){
             people_counter --;
-            // -------------
-            //test_number ++;
-            //Serial.println((String)">>>>> TEST: "+test_number);
-            // -------------
             if(people_counter < 0){
                 people_counter = 0;
             }
             wait_off = true;
-            //*wait_off = true; por referencia
             return; 
         }
         delay(1200);
     }
-    //post_json();
     Serial.println("Exits State Sensor 2");
-    // -------------
-    //test_number ++;
-    //Serial.println((String)">>>>> TEST: "+test_number);
-    // -------------
-    //Serial.println("-------------------------");
 }
 
 void wait_sensors_off(){
@@ -162,9 +140,7 @@ void wait_sensors_off(){
         }
         delay(1200);
     }
-    //post_json();
     Serial.println("Exits wait off");
-    //Serial.println("-------------------------");
 }
 
 void loop(){
