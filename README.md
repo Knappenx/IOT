@@ -33,7 +33,7 @@ For this prototype a Jetson Nano was used as Gateway, though any other device ca
 
 ## Sensor
 On the sensor setup function WiFi parameters and connection will be established. 
-```arduino
+```cpp
 
 const char* ssid = "Your_Router_Name";
 const char* password = "Your_WiFi_Password";
@@ -55,7 +55,8 @@ void setup(){
 ```
 Using ```WiFi.mode(WIFI_STA)``` will set the sensor as a station to allow us to both send and receive information, though in this case the sensor will only send information to the server. To send information I created the ```post_json``` function. The information will be sent to the defined host. Lastly we call ```post_json``` function whenever we want to register information on our server, which will be made through an http **```POST```** request. 
 
-```arduino
+```cpp
+
 const char *host = "http://<replace with your server's IP>/status/";
 
 void post_json(){
