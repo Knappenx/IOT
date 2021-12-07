@@ -11,9 +11,9 @@ If your README is long, add a table of contents to make it easy for users to fin
     - [Django Settings](#django-settings)
     - [Django Models](#django-models)
     - [Django Views](#django-views)
-  - [User Interface](#user-interface)
   - [Actuator](#actuator)
   - [Sensor](#sensor)
+  - [User Interface](#user-interface)
   - [Usage](#usage)
   - [Demo Video](#demo-video)
   - [Credits](#credits)
@@ -73,7 +73,8 @@ pip install Django==3.2.9
 pip install requests==2.26.0
 ```
 ### Django Settings
-
+On a terminal run ```ipconfig``` or ```ip a``` to know your computer's IP address which
+we will use to update the ```ALLOWED HOSTS``` in ```gateway/gateway/setting.py```.
 ```python
 ALLOWED_HOSTS = ['localhost', '<Insert your gateway/computer IP>']
 ```
@@ -111,8 +112,9 @@ def actuator_get_request_update(status):
             headers = {'Content-Type': 'text/html'}
         )
 ```
+**NOTE:** You're free to modify the models if needed for scalability if you need to add 
+more Actuators.
 
-## User Interface
 
 ## Actuator
 The actuator was programmed in mycropython, using Mu as IDE to upload the program. 
@@ -135,7 +137,8 @@ if request.find('/actuator=on') == 6:
 ```
 
 ## Sensor
-On the sensor setup function WiFi parameters and connection will be established. 
+
+On the sensor setup function WiFi parameters and connection will be established. We need to introduce networ's name and password.
 ```cpp
 
 const char* ssid = "Your_Router_Name";
@@ -194,19 +197,11 @@ void post_json(){
     delay(5000);
 }
 ```
+## User Interface
+
+![IoT User Interface](https://github.com/Knappenx/IOT/blob/update/add-readme/resources/images/ui.PNG)
+
 ## Usage
-Update in the Arduino Code your WiFi's network information and introdue your server's IP
-where needed. Afterwards upload the code into an NodeMCU board for the sensor to work.
-
-On Mu update the actuator's WiFi's network information and upload to another NodeMCU board
-for the actuator to run. Read the IP from the actuator as you'll need to update this in 
-```sensor/views.py``` in function ```actuator_get_request_update```. 
-
-NOTE: You're free to modify the models if needed for scalability if you need to add 
-more Actuators.
-
-On a terminal run ```ipconfig``` or ```ip a``` to know your computer's IP address which
-we will use to update the ```ALLOWED HOSTS``` in ```gateway/gateway/setting.py```.
 
 Run Django's server on the device you wish to use as server using its IP
 ```
@@ -220,7 +215,7 @@ http://{Introduce your IP here}:8000/status/
 ## Demo Video
 
 ## Credits
-Vecteezy.com and santima suksawat for background image used for the /status/ site
+Vecteezy.com and Santima Suksawat for background image used for ```/status/``` site`template.
 
 ## License
 MIT License
