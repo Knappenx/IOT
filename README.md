@@ -1,12 +1,28 @@
 # IoT Architecture prototype
 
-## General description
-
-An IOT project using web POST and GET requests to send information from a sensor to a server and
-from the server to actuators. In this example I use an access control sensor in Arduino and an 
-actuator using MicroPython to turn on/off a light.
+## Table of Contents
+If your README is long, add a table of contents to make it easy for users to find what they need.
+- [IoT Architecture prototype](#iot-architecture-prototype)
+  - [Table of Contents](#table-of-contents)
+  - [IoT Architecture](#iot-architecture)
+  - [Technologies](#technologies)
+  - [Gateway](#gateway)
+    - [Setup](#setup)
+    - [Django Settings](#django-settings)
+    - [Django Models](#django-models)
+    - [Django Views](#django-views)
+  - [User Interface](#user-interface)
+  - [Actuator](#actuator)
+  - [Sensor](#sensor)
+  - [Usage](#usage)
+  - [Demo Video](#demo-video)
+  - [Credits](#credits)
+  - [License](#license)
 
 ## IoT Architecture
+An IoT project using web POST and GET requests to send information from a sensor to a server and
+from the server to actuators. In this example I use an access control sensor in Arduino and an 
+actuator using MicroPython to turn on/off a light.
 
 This project was designed to work as a 4 layered IoT architecture.
 
@@ -26,10 +42,97 @@ This project was designed to work as a 4 layered IoT architecture.
 - **Application layer**:
   - The UI allows to display and interact with registered sensors and actuators.
 
+## Technologies
+Project was created with:
+* Python 3.9.6
+  * Django 3.2.9
+  * Requests 2.26.0
+* Arduino 1.8.15
+* Mu 1.1.0
+
 ## Gateway
 For this prototype a Jetson Nano was used as Gateway, though any other device capable of running Django will work for this purpose.
 
+### Setup
+In a Terminal, located in our project's folder it is recommended to create a virtual environment:
+```
+virtualenv venv
+```
+After creating it, we will proceed to activate it.
+Linux/Mac:
+```
+source venv/bin/activate
+```
+Windows:
+```
+venv/Scripts/activate
+```
+Once our virtual environment is active we will install Django and requests:
+```
+pip install Django==3.2.9
+pip install requests==2.26.0
+```
+### Django Settings
+
+```python
+ALLOWED_HOSTS = ['localhost', '<Insert your gateway/computer IP>']
+```
+
+### Django Models
+
+Sensors and actuators will be related by their location, this means that if both of them share the same location i.e. **"Kitchen"**, the action that will come up from the sensor's data will action the actuators in location **"Kitchen"**.
+
+Sensors can be automatically added to database on their first **```POST```**, but actuators do need to be added via shell commands or using the admin panel.
+```python
+class Sensor(models.Model):
+    sensor_name = models.CharField(max_length=50, unique=True)
+    location = models.CharField(max_length=50)
+    people_in_room = models.IntegerField()
+    added = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
+
+class Actuator(models.Model):
+    actuator_name = models.CharField(max_length=50, unique=True)
+    location = models.CharField(max_length=50)
+    actuator_status = models.IntegerField()
+    added = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
+```
+
+### Django Views
+We need to update the actuator's IP value. For now it only allows for a single actuator, though in the future this funtion will allow to make these changes automatically by implementing variable queries from Database.
+
+``` python
+def actuator_get_request_update(status):
+    actuator_url = f"http://<enter actuator's IP>/actuator={status}"
+    # Example: actuator_url = f"http://192.168.1.100/actuator={status}"
+    requests.get(
+            actuator_url, 
+            headers = {'Content-Type': 'text/html'}
+        )
+```
+
+## User Interface
+
 ## Actuator
+The actuator was programmed in mycropython, using Mu as IDE to upload the program. 
+
+First we need to capture our Networ's name and password for the sensor to connect. 
+```python
+ssid = "Your WiFi network name" 
+password = "Your Wifi network password"
+```
+
+This request.find reading relates to the **```GET```** message sent by the Gateway, where ON/OFF were part of the request message as ```status```
+```python
+if request.find('/actuator=on') == 6:
+        print('Actuator ON')
+        actuator.value(1)
+    if request.find('/actuator=off') == 6:
+        print('Actuator OFF')
+        actuator.value(0)
+    response = "OK"
+```
 
 ## Sensor
 On the sensor setup function WiFi parameters and connection will be established. 
@@ -91,8 +194,6 @@ void post_json(){
     delay(5000);
 }
 ```
-## UI
-
 ## Usage
 Update in the Arduino Code your WiFi's network information and introdue your server's IP
 where needed. Afterwards upload the code into an NodeMCU board for the sensor to work.
@@ -115,6 +216,7 @@ Open a web browser in the following path:
 ```
 http://{Introduce your IP here}:8000/status/
 ```
+
 ## Demo Video
 
 ## Credits

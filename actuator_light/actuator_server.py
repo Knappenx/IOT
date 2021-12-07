@@ -19,7 +19,6 @@ while wlan.isconnected() == False:
 print('WiFi connection on %s established. Device network information: ' % ssid)
 print(wlan.ifconfig())
 
-
 actuator = Pin(2, Pin.OUT)
 
 tcp_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -31,7 +30,11 @@ while True:
     print('New connection at:  %s' % str(addr))
     request = conn.recv(1024)
     print('Request = %s' % str(request))
+
+    # GET request from server
     request = str(request)
+
+    # request.find == 6 since information is the 6th value on request
     if request.find('/actuator=on') == 6:
         print('Actuator ON')
         actuator.value(1)
