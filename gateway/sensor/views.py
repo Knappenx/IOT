@@ -63,7 +63,7 @@ def actuator_get_request_update(status):
     """
     Sends a status ON or OFF on a GET message to the actuator.
 
-    TO DO: IP address should be a variable for each device, to control
+    TODO: IP address should be a variable for each device, to control
         them individually.
     """
     actuator_url = f'http://192.168.0.28/actuator={status}'
@@ -74,6 +74,9 @@ def actuator_get_request_update(status):
 
 
 def manual_update_actuator(request, actuator_id):
+    """
+    Allows to manually override actuator's ON/OFF status from UI
+    """
     actuator = Actuator.objects.get(id=actuator_id)
     if actuator.actuator_status == 1:
         actuator.actuator_status = 0
