@@ -26,7 +26,7 @@ actuator using MicroPython to turn on/off a light.
 
 This project was designed to work as a 4 layered IoT architecture.
 
-![4 layerd IoT architecture](https://github.com/Knappenx/IOT/blob/update/add-readme/resources/images/IoT_arq.PNG)
+![4 layerd IoT architecture](https://github.com/Knappenx/IOT/blob/main/resources/images/IoT_arq.PNG)
 
 - **Physical layer**: Sensors and actuators.
   - *Sensor*: An occupancy sensor which sends information through an HTTP request to the Gateway's server every time it senses a person going in or out of a room.
@@ -184,7 +184,7 @@ void post_json(){
 ## User Interface
 This is a preview of what the USer Interface looks like. From here we can visualize sensor's data and actuator's status. You can intercat with actuators from here as well.
 
-![IoT User Interface](https://github.com/Knappenx/IOT/blob/update/add-readme/resources/images/ui.PNG)
+![IoT User Interface](https://github.com/Knappenx/IOT/blob/main/resources/images/ui.PNG)
 
 ## Usage
 
