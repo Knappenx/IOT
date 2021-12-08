@@ -6,10 +6,10 @@ If your README is long, add a table of contents to make it easy for users to fin
   - [Table of Contents](#table-of-contents)
   - [IoT Architecture](#iot-architecture)
   - [Technologies](#technologies)
+  - [Hardware](#hardware)
   - [Gateway](#gateway)
     - [Setup](#setup)
     - [Django Settings](#django-settings)
-    - [Django Models](#django-models)
     - [Django Views](#django-views)
   - [Actuator](#actuator)
   - [Sensor](#sensor)
@@ -43,12 +43,17 @@ This project was designed to work as a 4 layered IoT architecture.
   - The UI allows to display and interact with registered sensors and actuators.
 
 ## Technologies
-Project was created with:
+This project was created with:
 * Python 3.9.6
   * Django 3.2.9
   * Requests 2.26.0
 * Arduino 1.8.15
 * Mu 1.1.0
+
+## Hardware
+* 2x  PIR sensors
+* 2x  NodeMCU circuit board
+* 1x  LED
 
 ## Gateway
 For this prototype a Jetson Nano was used as Gateway, though any other device capable of running Django will work for this purpose.
@@ -77,27 +82,6 @@ On a terminal run ```ipconfig``` or ```ip a``` to know your computer's IP addres
 we will use to update the ```ALLOWED HOSTS``` in ```gateway/gateway/setting.py```.
 ```python
 ALLOWED_HOSTS = ['localhost', '<Insert your gateway/computer IP>']
-```
-
-### Django Models
-
-Sensors and actuators will be related by their location, this means that if both of them share the same location i.e. **"Kitchen"**, the action that will come up from the sensor's data will action the actuators in location **"Kitchen"**.
-
-Sensors can be automatically added to database on their first **```POST```**, but actuators do need to be added via shell commands or using the admin panel.
-```python
-class Sensor(models.Model):
-    sensor_name = models.CharField(max_length=50, unique=True)
-    location = models.CharField(max_length=50)
-    people_in_room = models.IntegerField()
-    added = models.DateTimeField(auto_now_add=True)
-    last_modified = models.DateTimeField(auto_now=True)
-
-class Actuator(models.Model):
-    actuator_name = models.CharField(max_length=50, unique=True)
-    location = models.CharField(max_length=50)
-    actuator_status = models.IntegerField()
-    added = models.DateTimeField(auto_now_add=True)
-    last_modified = models.DateTimeField(auto_now=True)
 ```
 
 ### Django Views
@@ -198,6 +182,7 @@ void post_json(){
 }
 ```
 ## User Interface
+This is a preview of what the USer Interface looks like. From here we can visualize sensor's data and actuator's status. You can intercat with actuators from here as well.
 
 ![IoT User Interface](https://github.com/Knappenx/IOT/blob/update/add-readme/resources/images/ui.PNG)
 
@@ -211,8 +196,13 @@ Open a web browser in the following path:
 ```
 http://{Introduce your IP here}:8000/status/
 ```
+Sensors and actuators will be related by their location, this means that if both of them share the same location i.e. **"Kitchen"**, the action that will come up from the sensor's data will trigger an action in actuators sharing the same location **"Kitchen"**.
+
+Sensors can be automatically added to database on their first **```POST```**, but actuators do need to be added via shell commands or using the admin panel.
+
 
 ## Demo Video
+Video demonstration available [here](https://youtu.be/uvCQJizTpLY 'Four layered IoT application')
 
 ## Credits
 Vecteezy.com and Santima Suksawat for background image used for ```/status/``` site`template.
